@@ -1,13 +1,12 @@
 const path = require('path');
 const WebpackPlugins = require('./webpack/webpack.plugins.config.js');
-const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const WebpackDevServer = require('./webpack/webpack.server.config.js');
 
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve('build'),
-        publicPath: path.resolve('build'),
-		filename: './statics/js/main[hash].js'
+		filename: 'bundle.js'
     },
     resolve: {
         extensions: ['.js', '.jsx']
@@ -31,10 +30,7 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ExtractTextWebpackPlugin.extract({
-                    use: 'css-loader',
-                    fallback: 'style-loader'
-                })
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.(png|svg|gif|jpe?g)$/,
@@ -43,7 +39,7 @@ module.exports = {
 					loader: 'url-loader',
 					options: {
 						limit: 450000, // 450Kb
-						name: './statics/media/[name].[ext]',
+						name: '/statics/media/[name].[ext]',
 						fallback: 'file-loader'
 					}
 				}]
@@ -54,7 +50,7 @@ module.exports = {
 					loader: 'url-loader',
 					options: {
 						limit: 1000000, // 1Mb
-						name: './statics/media/[name].[ext]',
+						name: '/statics/media/[name].[ext]',
 						fallback: 'file-loader'
 					}
 				}]
@@ -62,10 +58,7 @@ module.exports = {
         ]
     },
     plugins: [
-        WebpackPlugins.ProgressBarWebpackPluginConfig,
-        WebpackPlugins.CleanWebpackPluginConfig,
-        WebpackPlugins.HtmlWebpackPluginConfig,
-        WebpackPlugins.ExtractTextWebpackPluginConfig,
-        WebpackPlugins.UglifyJSWebpackPluginConfig
-    ]
+        WebpackPlugins.HtmlWebpackPluginConfig
+    ],
+    devServer: WebpackDevServer
 };

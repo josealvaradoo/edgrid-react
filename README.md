@@ -1,4 +1,4 @@
-#EDgrid React
+# EDgrid React
 
 EDgrid React es un proyecto basado en la librería `ed-grid` y `react`. Inspirado por el desarrollo de la aplicación de [EDteam](https://app.ed.team), donde se utilizan ambas librerías.
 
